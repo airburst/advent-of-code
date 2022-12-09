@@ -1,4 +1,20 @@
 const data = await Deno.readTextFile("../input.txt");
-const lines: string[] = data.split("\n");
+const uniqueLength = 14;
 
-console.log("🚀 ~ file: index.ts:3 ~ lines", lines);
+let pos = 0;
+const stack: string[] = [];
+
+const allDifferent = (letters: string[]) => {
+  const uniques = new Set(letters);
+  return uniques.size === uniqueLength;
+};
+
+while (data.charAt(pos) && !allDifferent(stack)) {
+  stack.push(data.charAt(pos));
+  if (stack.length === uniqueLength + 1) {
+    stack.shift();
+  }
+  pos += 1;
+}
+
+console.log(pos);
